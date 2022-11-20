@@ -4,7 +4,7 @@ const route = require('./routes/route')
 const {default : mongoose } = require('mongoose');
 const blog = express();
 blog.use(bodyParser.json());
-blog.use(bodyParser.urlencoded({extended : true}));
+
 
 
 mongoose.connect(

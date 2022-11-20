@@ -2,7 +2,9 @@
 const authorModel = require("../Models/AuthorModel")
 const jwt  = require("jsonwebtoken")
 const validation = require("../validation/validations")
-let {   validName ,  isValidEmail ,  isValidTitle ,  isValidPassword   } = validation
+let {   validName ,  isValidEmail ,  isValidTitle , isValidPassword  } = validation
+
+
 
 const createdAuthor = async function(req, res){
      try{
@@ -10,7 +12,7 @@ const createdAuthor = async function(req, res){
        
         let { fname , lname , title , email, password } = data
         if(!fname || !lname || !title || !email || !password){
-        return res.status(400).send({ status : "false" , message : "All field are  mandatory"})
+        return res.status(400).send({ status : "false" , message : "All field are mandatory"})
         }
         if(!validName(fname)){
         return res.status(400).send({status : "false", message : "first name must be in alphabet"})
@@ -25,8 +27,9 @@ const createdAuthor = async function(req, res){
         return res.status(400).send({status : "false", message : "provide a valid email"})
         }
         if(!isValidPassword(password)){
-        return res.status(400).send({status : "false", message : "provide a valid password"})
+          return res.status(400).send({status : "false", message : "provide a valid password"})
         }
+        
         const result = await authorModel.create(data)
         return res.status(201).send({ status : true , msg : "data created successfully",data : result})
         }

@@ -29,6 +29,8 @@ const createdBlog = async function (req, res)
         if(!isvalidObjectid(authorId)){
         return res.status(404).send({ status: false, msg: "provide a valid author id" })
         }
+
+
         let checkauthorId = await authorModel.findById(authorId)
         if(!checkauthorId){
         return res.status(404).send({ status: false, msg: " author not found " })
@@ -62,18 +64,19 @@ const getBlogs = async function (req, res) {
 
             if (category) { filter.category = category }
             if(tags) {
-            if (tags.trim().length==0){
+            if (tags.trim().length == 0){
             return res.status(400).send({Status:false, Msg:"Dont left the tag query empty"}) 
             }
-            filter.tags={$all:tags.trim().split(',').map(ele=>ele.trim())}
+            filter.tags={ $all: tags.trim().split(',').map(ele=>ele.trim())}
             }
 
 
          
-           if (subcategory) 
+           if (subcategory) {
            if(subcategory.trim().length == 0)
            return res.status(400).send({Status:false, Msg:"Dont left the subCategory query empty"}) 
-           filter.subcategory =  {$all:subcategory.trim().split(',').map(ele=>ele.trim())}
+           filter.subcategory =  { $all: subcategory.trim().split(',').map(ele=>ele.trim())}
+           }
             
         
 
@@ -139,6 +142,9 @@ const updateblog = async function (req, res)
         }
 }
 
+
+
+
 const deleteBlog = async function(req,res)
 {
         try{
@@ -187,6 +193,26 @@ const deleteBlogbyquery = async function(req, res)
         return res.status(500).send({ status: false, msg: err.message })
         }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
